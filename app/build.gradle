@@ -59,50 +59,30 @@ tasks.withType(KotlinCompile).configureEach {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-// dependencies {
-//     final def navVersion = "2.3.5"
-//     final def roomVersion = "2.6.1"
-//
-//     ksp "androidx.room:room-compiler:$roomVersion"
-//     implementation "androidx.room:room-ktx:$roomVersion"
-//     implementation "androidx.room:room-runtime:$roomVersion"
-//
-//     implementation "androidx.work:work-runtime:2.9.0"
-//
-//     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
-//     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
-//
-//     implementation "org.ocpsoft.prettytime:prettytime:4.0.6.Final"
-//     implementation "com.google.android.material:material:1.4.0"
-//
-//     implementation "com.github.bumptech.glide:glide:4.15.1"
-//     implementation "com.github.rambler-digital-solutions:swipe-layout-android:1.0.17"
-//     implementation "com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0"
-// }
 dependencies {
-    final def navVersion = "2.7.7" // Update Navigation Component
-    final def roomVersion = "2.6.1" // Already up-to-date
-    final def materialVersion = "1.11.0" // Update Material Components
-    final def glideVersion = "4.16.0" // Update Glide
-    final def workVersion = "2.9.0" // Already up-to-date
+    final def navVersion = "2.7.7"
+    final def roomVersion = "2.6.1"
+    final def materialVersion = "1.11.0"
+    final def glideVersion = "4.16.0"
+    final def workVersion = "2.9.0"
 
     ksp "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     implementation "androidx.room:room-runtime:$roomVersion"
 
-    implementation "androidx.work:work-runtime-ktx:$workVersion" // Use -ktx for coroutines support
+    implementation "androidx.work:work-runtime-ktx:$workVersion"
 
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
 
-    implementation "org.ocpsoft.prettytime:prettytime:4.0.6.Final" // No update available
+    implementation "org.ocpsoft.prettytime:prettytime:4.0.6.Final"
 
     implementation "com.google.android.material:material:$materialVersion"
 
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     kapt 'com.github.bumptech.glide:compiler:4.16.0'
-    implementation "com.github.rambler-digital-solutions:swipe-layout-android:1.0.17" // No update available
-    implementation "com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0" // No update available
+    implementation "com.github.rambler-digital-solutions:swipe-layout-android:1.0.17"
+    implementation "com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0"
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
 }
 kotlin {

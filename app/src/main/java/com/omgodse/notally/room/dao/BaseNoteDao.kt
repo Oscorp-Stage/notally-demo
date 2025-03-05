@@ -141,12 +141,6 @@ interface BaseNoteDao {
      * will also be returned. To prevent this, we use [Transformations.map] and
      * filter the result accordingly.
      */
-//    fun getBaseNotesByLabel(label: String): LiveData<List<BaseNote>> {
-//        val result = getBaseNotesByLabel(label, Folder.NOTES)
-//       return Transformations.map(result) { list: List<BaseNote> ->
-//        list.filter { baseNote -> baseNote.labels.contains(label) }
-//        }
-//    }
 
     fun getBaseNotesByLabel(label: String): LiveData<List<BaseNote>> {
         val result = getBaseNotesByLabel(label, Folder.NOTES)
@@ -166,14 +160,6 @@ interface BaseNoteDao {
 
     @Query("SELECT * FROM BaseNote WHERE labels LIKE '%' || :label || '%'")
     suspend fun getListOfBaseNotesByLabelImpl(label: String): List<BaseNote>
-
-
-//    fun getBaseNotesByKeyword(keyword: String, folder: Folder): LiveData<List<BaseNote>> {
-//        val result = getBaseNotesByKeywordImpl(keyword, folder)
-//        return Transformations.map(result) { list: List<BaseNote> ->
-//        list.filter { baseNote -> matchesKeyword(baseNote, keyword) }
-//        }
-//    }
 
     fun getBaseNotesByKeyword(keyword: String, folder: Folder): LiveData<List<BaseNote>> {
         val result = getBaseNotesByKeywordImpl(keyword, folder)
