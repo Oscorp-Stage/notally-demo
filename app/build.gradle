@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'com.google.devtools.ksp'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -14,11 +15,11 @@ android {
     defaultConfig {
         applicationId 'com.omgodse.notally'
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 54
         versionName "5.9"
         resourceConfigurations += ['en', 'ca', 'cs', 'da', 'de', 'el', 'es', 'fr', 'hu', 'in', 'it', 'ja', 'ko', 'my', 'nb', 'nl', 'nn', 'pl', 'pt-rBR', 'pt-rPT', 'ro', 'ru', 'sk', 'sv', 'tl', 'tr', 'uk', 'vi', 'zh-rCN']
-        vectorDrawables.generatedDensities = []
+//         vectorDrawables.generatedDensities = []
     }
 
     ksp {
@@ -38,9 +39,12 @@ android {
         }
     }
 
-    kotlinOptions { jvmTarget = "1.8" }
+    kotlinOptions { jvmTarget = "17" }
 
-    buildFeatures { viewBinding true }
+    buildFeatures {
+    viewBinding true
+    buildConfig true
+     }
 
     packagingOptions.resources {
         excludes += ["DebugProbesKt.bin", "META-INF/**.version", "kotlin/**.kotlin_builtins", "kotlin-tooling-metadata.json"]
@@ -55,23 +59,56 @@ tasks.withType(KotlinCompile).configureEach {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+// dependencies {
+//     final def navVersion = "2.3.5"
+//     final def roomVersion = "2.6.1"
+//
+//     ksp "androidx.room:room-compiler:$roomVersion"
+//     implementation "androidx.room:room-ktx:$roomVersion"
+//     implementation "androidx.room:room-runtime:$roomVersion"
+//
+//     implementation "androidx.work:work-runtime:2.9.0"
+//
+//     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+//     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+//
+//     implementation "org.ocpsoft.prettytime:prettytime:4.0.6.Final"
+//     implementation "com.google.android.material:material:1.4.0"
+//
+//     implementation "com.github.bumptech.glide:glide:4.15.1"
+//     implementation "com.github.rambler-digital-solutions:swipe-layout-android:1.0.17"
+//     implementation "com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0"
+// }
 dependencies {
-    final def navVersion = "2.3.5"
-    final def roomVersion = "2.6.1"
+    final def navVersion = "2.7.7" // Update Navigation Component
+    final def roomVersion = "2.6.1" // Already up-to-date
+    final def materialVersion = "1.11.0" // Update Material Components
+    final def glideVersion = "4.16.0" // Update Glide
+    final def workVersion = "2.9.0" // Already up-to-date
 
     ksp "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     implementation "androidx.room:room-runtime:$roomVersion"
 
-    implementation "androidx.work:work-runtime:2.9.0"
+    implementation "androidx.work:work-runtime-ktx:$workVersion" // Use -ktx for coroutines support
 
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
 
-    implementation "org.ocpsoft.prettytime:prettytime:4.0.6.Final"
-    implementation "com.google.android.material:material:1.4.0"
+    implementation "org.ocpsoft.prettytime:prettytime:4.0.6.Final" // No update available
 
-    implementation "com.github.bumptech.glide:glide:4.15.1"
-    implementation "com.github.rambler-digital-solutions:swipe-layout-android:1.0.17"
-    implementation "com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0"
+    implementation "com.google.android.material:material:$materialVersion"
+
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt 'com.github.bumptech.glide:compiler:4.16.0'
+    implementation "com.github.rambler-digital-solutions:swipe-layout-android:1.0.17" // No update available
+    implementation "com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0" // No update available
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
+}
+kotlin {
+    sourceSets.all {
+        languageSettings {
+            optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        }
+    }
 }

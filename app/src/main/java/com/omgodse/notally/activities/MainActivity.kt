@@ -405,18 +405,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateWithAnimation(id: Int) {
-        val options = navOptions {
-            launchSingleTop = true
-            anim {
-                exit = androidx.navigation.ui.R.anim.nav_default_exit_anim
-                enter = androidx.navigation.ui.R.anim.nav_default_enter_anim
-                popExit = androidx.navigation.ui.R.anim.nav_default_pop_exit_anim
-                popEnter = androidx.navigation.ui.R.anim.nav_default_pop_enter_anim
-            }
-            popUpTo(navController.graph.startDestination) { inclusive = false }
+    val options = navOptions {
+        launchSingleTop = true
+        anim {
+            exit = androidx.navigation.ui.R.anim.nav_default_exit_anim
+            enter = androidx.navigation.ui.R.anim.nav_default_enter_anim
+            popExit = androidx.navigation.ui.R.anim.nav_default_pop_exit_anim
+            popEnter = androidx.navigation.ui.R.anim.nav_default_pop_enter_anim
         }
-        navController.navigate(id, null, options)
+        popUpTo(navController.graph.startDestinationId) {
+            inclusive = false
+        }
     }
+    navController.navigate(id, null, options)
+}
 
 
     private fun setupSearch() {

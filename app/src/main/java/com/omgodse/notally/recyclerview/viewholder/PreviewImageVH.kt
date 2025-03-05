@@ -21,35 +21,35 @@ class PreviewImageVH(private val binding: RecyclerPreviewImageBinding, onClick: 
     }
 
     fun bind(file: File?) {
-        binding.Message.visibility = View.GONE
+    binding.Message.visibility = View.GONE
 
-        Glide.with(binding.ImageView)
-            .load(file)
-            .centerCrop()
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .listener(object : RequestListener<Drawable> {
+    Glide.with(binding.ImageView)
+        .load(file)
+        .centerCrop()
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .diskCacheStrategy(DiskCacheStrategy.NONE)
+        .listener(object : RequestListener<Drawable> {
 
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    binding.Message.visibility = View.VISIBLE
-                    return false
-                }
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>,
+                isFirstResource: Boolean
+            ): Boolean {
+                binding.Message.visibility = View.VISIBLE
+                return false
+            }
 
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            })
-            .into(binding.ImageView)
+            override fun onResourceReady(
+                resource: Drawable,
+                model: Any,
+                target: Target<Drawable>,
+                dataSource: DataSource,
+                isFirstResource: Boolean
+            ): Boolean {
+                return false
+            }
+        })
+        .into(binding.ImageView)
     }
 }
