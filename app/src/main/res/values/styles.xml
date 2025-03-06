@@ -152,4 +152,8 @@
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialComponents.Chip</item>
     </style>
 
+    <style name="SelectionAnimationStyle">
+        <item name="android:stateListAnimator">@animator/card_state_list_animator</item>
+    </style>
+
 </resources>

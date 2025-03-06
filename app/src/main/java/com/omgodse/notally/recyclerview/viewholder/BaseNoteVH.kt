@@ -1,12 +1,16 @@
 package com.omgodse.notally.recyclerview.viewholder
 
+import android.animation.ValueAnimator
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
+import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.isVisible
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -44,6 +48,14 @@ class BaseNoteVH(
     private val formatter: java.text.DateFormat,
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    // Add properties to track animation state
+    private var currentElevation = 0f
+    private val defaultElevation = 0f
+    private val selectedElevation = 16f
+    private var elevationAnimator: ValueAnimator? = null
+    private val animationDuration = 300L
+    private val interpolator = FastOutSlowInInterpolator()
+
     init {
         val title = TextSize.getDisplayTitleSize(textSize)
         val body = TextSize.getDisplayBodySize(textSize)
@@ -72,10 +84,70 @@ class BaseNoteVH(
 
     fun updateCheck(checked: Boolean) {
         binding.root.isChecked = checked
+        animateSelectionState(checked)
+    }
+
+    private fun animateSelectionState(selected: Boolean) {
+        Log.d("CardAnimation", "Animation started - Selected: $selected, Target elevation: ${if (selected) selectedElevation else defaultElevation}")
+        // Cancel any ongoing animations
+        elevationAnimator?.cancel()
+
+        // Calculate target values
+        val targetElevation = if (selected) selectedElevation else defaultElevation
+
+        // Create animator for elevation
+        elevationAnimator = ValueAnimator.ofFloat(currentElevation, targetElevation).apply {
+            duration = animationDuration
+            interpolator = this@BaseNoteVH.interpolator
+
+            addUpdateListener { animator ->
+                val value = animator.animatedValue as Float
+                currentElevation = value
+                binding.root.cardElevation = value
+            }
+
+            doOnEnd {
+                currentElevation = targetElevation
+                Log.d("CardAnimation", "Animation completed - Current elevation: $currentElevation")
+            }
+
+            start()
+        }
+
+        // Apply a subtle scale animation when selected
+        if (selected) {
+            binding.root.animate()
+                .scaleX(1.05f)
+                .scaleY(1.05f)
+                .setDuration(animationDuration)
+                .setInterpolator(interpolator)
+                .start()
+        } else {
+            binding.root.animate()
+                .scaleX(1.0f)
+                .scaleY(1.0f)
+                .setDuration(animationDuration)
+                .setInterpolator(interpolator)
+                .start()
+        }
     }
 
     fun bind(baseNote: BaseNote, mediaRoot: File?, checked: Boolean) {
-        updateCheck(checked)
+        // Update check state without animation on initial bind
+        binding.root.isChecked = checked
+
+        // Set the current elevation without animation when binding
+        if (checked) {
+            currentElevation = selectedElevation
+            binding.root.cardElevation = selectedElevation
+            binding.root.scaleX = 1.02f
+            binding.root.scaleY = 1.02f
+        } else {
+            currentElevation = defaultElevation
+            binding.root.cardElevation = defaultElevation
+            binding.root.scaleX = 1.0f
+            binding.root.scaleY = 1.0f
+        }
 
         when (baseNote.type) {
             Type.NOTE -> bindNote(baseNote.body, baseNote.spans)
@@ -97,6 +169,7 @@ class BaseNoteVH(
         }
     }
 
+    // Rest of the code remains the same...
     private fun bindNote(body: String, spans: List<SpanRepresentation>) {
         binding.LinearLayout.visibility = View.GONE
 
@@ -200,8 +273,6 @@ class BaseNoteVH(
             Glide.with(binding.ImageView).clear(binding.ImageView)
         }
     }
-
-
 
     private fun isEmpty(baseNote: BaseNote): Boolean {
         return when (baseNote.type) {
