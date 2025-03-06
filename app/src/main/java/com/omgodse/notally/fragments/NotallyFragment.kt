@@ -9,26 +9,33 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.omgodse.notally.activities.MakeList
 import com.omgodse.notally.activities.TakeNote
 import com.omgodse.notally.databinding.FragmentNotesBinding
 import com.omgodse.notally.miscellaneous.Constants
 import com.omgodse.notally.recyclerview.ItemListener
+import com.omgodse.notally.recyclerview.SwipeToActionCallback
 import com.omgodse.notally.recyclerview.adapter.BaseNoteAdapter
 import com.omgodse.notally.room.BaseNote
+import com.omgodse.notally.room.Folder
 import com.omgodse.notally.room.Item
 import com.omgodse.notally.room.Type
 import com.omgodse.notally.viewmodels.BaseNoteModel
 import java.text.DateFormat
+import com.omgodse.notally.R
 import com.omgodse.notally.preferences.View as ViewPref
 
 abstract class NotallyFragment : Fragment(), ItemListener {
 
     private var adapter: BaseNoteAdapter? = null
     internal var binding: FragmentNotesBinding? = null
+    private var itemTouchHelper: ItemTouchHelper? = null
 
     internal val model: BaseNoteModel by activityViewModels()
 
@@ -36,6 +43,7 @@ abstract class NotallyFragment : Fragment(), ItemListener {
         super.onDestroyView()
         binding = null
         adapter = null
+        itemTouchHelper = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,6 +51,7 @@ abstract class NotallyFragment : Fragment(), ItemListener {
 
         setupAdapter()
         setupRecyclerView()
+        setupSwipeActions()
         setupObserver()
     }
 
@@ -123,6 +132,12 @@ abstract class NotallyFragment : Fragment(), ItemListener {
                         adapter?.notifyItemChanged(index, 0)
                     }
                 }
+                // Re-enable swipe when action mode is closed
+                if (!model.actionMode.isEnabled()) {
+                    itemTouchHelper?.attachToRecyclerView(binding?.RecyclerView)
+                } else {
+                    itemTouchHelper?.attachToRecyclerView(null)
+                }
             }
         }
     }
@@ -133,13 +148,94 @@ abstract class NotallyFragment : Fragment(), ItemListener {
         } else LinearLayoutManager(requireContext())
     }
 
+    private fun setupSwipeActions() {
+        val swipeCallback = SwipeToActionCallback(
+            requireContext(),
+            { position, direction, note ->
+                when (direction) {
+                    ItemTouchHelper.LEFT -> {
+                        // Swipe left to delete
+                        showDeleteConfirmation(note)
+                    }
+                    ItemTouchHelper.RIGHT -> {
+                        // Swipe right to archive/unarchive/restore based on current folder
+                        when (note.folder) {
+                            Folder.NOTES -> {
+                                model.updateFolder(note.id, Folder.ARCHIVED)
+                                showUndoSnackbar(getString(R.string.note_archived)) {
+                                    model.updateFolder(note.id, Folder.NOTES)
+                                }
+                            }
+                            Folder.ARCHIVED -> {
+                                model.updateFolder(note.id, Folder.NOTES)
+                                showUndoSnackbar(getString(R.string.note_unarchived)) {
+                                    model.updateFolder(note.id, Folder.ARCHIVED)
+                                }
+                            }
+                            Folder.DELETED -> {
+                                model.updateFolder(note.id, Folder.NOTES)
+                                showUndoSnackbar(getString(R.string.note_restored)) {
+                                    model.updateFolder(note.id, Folder.DELETED)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        )
+
+        itemTouchHelper = ItemTouchHelper(swipeCallback).apply {
+            // Only attach if not in action mode
+            if (!model.actionMode.isEnabled()) {
+                attachToRecyclerView(binding?.RecyclerView)
+            }
+        }
+
+        // We'll use the closeListener to monitor action mode changes
+        // rather than depending on a listener property that doesn't exist
+    }
+
+    private fun showDeleteConfirmation(note: BaseNote) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.delete_note)
+            .setMessage(
+                when (note.folder) {
+                    Folder.DELETED -> R.string.delete_note_forever
+                    else -> R.string.delete_note_confirmation
+                }
+            )
+            .setNegativeButton(R.string.cancel) { _, _ ->
+                // Refresh adapter to restore the swiped item
+                adapter?.notifyDataSetChanged()
+            }
+            .setPositiveButton(R.string.delete) { _, _ ->
+                when (note.folder) {
+                    Folder.DELETED -> model.permanentlyDeleteNote(note.id)
+                    else -> {
+                        model.updateFolder(note.id, Folder.DELETED)
+                        showUndoSnackbar(getString(R.string.note_deleted)) {
+                            model.updateFolder(note.id, Folder.NOTES)
+                        }
+                    }
+                }
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun showUndoSnackbar(message: String, action: () -> Unit) {
+        binding?.root?.let {
+            Snackbar.make(it, message, Snackbar.LENGTH_LONG)
+                .setAction(R.string.undo) { action() }
+                .show()
+        }
+    }
 
     private fun goToActivity(activity: Class<*>, baseNote: BaseNote) {
         val intent = Intent(requireContext(), activity)
         intent.putExtra(Constants.SelectedBaseNote, baseNote.id)
         startActivity(intent)
     }
-
 
     abstract fun getBackground(): Int
 

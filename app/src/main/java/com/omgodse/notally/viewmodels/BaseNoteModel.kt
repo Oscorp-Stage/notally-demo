@@ -639,4 +639,32 @@ class BaseNoteModel(private val app: Application) : AndroidViewModel(app) {
             }
         }
     }
+
+    // Add these methods to your BaseNoteModel class
+    fun updateFolder(noteId: Long, newFolder: Folder) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                baseNoteDao.updateFolder(noteId, newFolder)
+            }
+            WidgetProvider.sendBroadcast(app, longArrayOf(noteId))
+        }
+    }
+
+    fun permanentlyDeleteNote(noteId: Long) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val note = baseNoteDao.get(noteId)
+                if (note != null) {
+                    baseNoteDao.delete(noteId)
+
+                    // Delete attachments if any
+                    val attachments = ArrayList(note.images + note.audios)
+                    if (attachments.isNotEmpty()) {
+                        AttachmentDeleteService.start(app, attachments)
+                    }
+                }
+            }
+            WidgetProvider.sendBroadcast(app, longArrayOf(noteId))
+        }
+    }
 }

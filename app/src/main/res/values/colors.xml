@@ -25,4 +25,6 @@
     <color name="Clay">#E9E3D3</color>
     <color name="ripple_color">#33000000</color>
     <color name="selected_card_overlay">#11000000</color>
+    <color name="delete_background">#F44336</color>
+    <color name="archive_background">#4CAF50</color>
 </resources>

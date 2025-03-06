@@ -10,24 +10,24 @@
 
     <!-- Menu Options -->
     <string name="share">Share</string>
-    <string name="filter">Filter</string>
+    <string name="filter" translatable="false">Filter</string>
     <string name="search">Search</string>
     <string name="delete">Delete</string>
     <string name="restore">Restore</string>
     <string name="archive">Archive</string>
     <string name="unarchive">Unarchive</string>
-    <string name="add_images">Add images</string>
-    <string name="delete_all">Delete all</string>
-    <string name="record_audio">Record audio</string>
-    <string name="change_color">Change color</string>
-    <string name="make_a_copy">Make a copy</string>
+    <string name="add_images" translatable="false">Add images</string>
+    <string name="delete_all" translatable="false">Delete all</string>
+    <string name="record_audio" translatable="false">Record audio</string>
+    <string name="change_color" translatable="false">Change color</string>
+    <string name="make_a_copy" translatable="false">Make a copy</string>
     <string name="delete_forever">Delete forever</string>
 
     <!-- Pinning -->
     <string name="pin">Pin</string>
     <string name="unpin">Unpin</string>
     <string name="pinned">Pinned</string>
-    <string name="others">Others</string>
+    <string name="others" translatable="false">Others</string>
 
     <!-- Chooser dialog hints -->
     <string name="view_note">View note</string>
@@ -36,20 +36,20 @@
     <string name="save">Save</string>
     <string name="edit">Edit</string>
     <string name="cancel">Cancel</string>
-    <string name="continue_">Continue</string>
-    <string name="open_link">Open link</string>
+    <string name="continue_" translatable="false">Continue</string>
+    <string name="open_link" translatable="false">Open link</string>
     <string name="make_list">Make list</string>
     <string name="take_note">Take note</string>
     <string name="add_label">Add label</string>
     <string name="export">Export</string>
-    <string name="view_file">View file</string>
+    <string name="view_file" translatable="false">View file</string>
     <string name="save_to_device">Save to device</string>
     <string name="edit_label">Edit label</string>
     <string name="label_exists">Label exists</string>
     <string name="delete_label">Delete label?</string>
     <string name="create_new">No labels yet. Create one?</string>
-    <string name="delete_all_notes">Delete all notes?</string>
-    <string name="delete_selected_notes">Delete selected notes?</string>
+    <string name="delete_all_notes" translatable="false">Delete all notes?</string>
+    <string name="delete_selected_notes" translatable="false">Delete selected notes?</string>
     <string name="delete_note_forever">Delete note forever?</string>
     <string name="your_notes_associated">Your notes attached to this label will not be deleted</string>
 
@@ -59,28 +59,28 @@
     <string name="date">Date</string>
     <string name="title">Title</string>
     <string name="add_item">Add Item</string>
-    <string name="audio_recordings">Audio Recordings</string>
+    <string name="audio_recordings" translatable="false">Audio Recordings</string>
     <string name="drag_handle">Drag Handle</string>
     <string name="bold">Bold</string>
     <string name="link">Link</string>
     <string name="italic">Italic</string>
     <string name="strikethrough">Strikethrough</string>
     <string name="clear_formatting">Clear formatting</string>
-    <string name="monospace">Monospace</string>
+    <string name="monospace" translatable="false">Monospace</string>
 
     <!-- Miscellaneous -->
     <string name="saved_to_device">Saved to device</string>
     <string name="saved_to_notally">Saved to Notally</string>
     <string name="empty_note">Empty note</string>
     <string name="empty_list">Empty list</string>
-    <string name="select_labels">Select labels</string>
+    <string name="select_labels" translatable="false">Select labels</string>
 
     <!-- Messages -->
-    <string name="cant_open_link">Can’t open link</string>
+    <string name="cant_open_link">Can\'t open link</string>
     <string name="something_went_wrong">Something went wrong. Please try again.</string>
-    <string name="install_an_email">Install an email app to send feedback</string>
-    <string name="install_a_browser">Install a browser to open this link</string>
-    <string name="cant_find_note">Can’t find note. It may have been deleted</string>
+    <string name="install_an_email" translatable="false">Install an email app to send feedback</string>
+    <string name="install_a_browser" translatable="false">Install a browser to open this link</string>
+    <string name="cant_find_note" translatable="false">Can\'t find note. It may have been deleted</string>
 
     <!-- Settings Page -->
     <string name="appearance">Appearance</string>
@@ -94,82 +94,92 @@
     <string name="light">Light</string>
     <string name="follow_system">Follow system</string>
 
-    <string name="date_format">Date format</string>
-    <string name="none">None</string>
+    <string name="date_format" translatable="false">Date format</string>
+    <string name="none" translatable="false">None</string>
 
-    <string name="text_size">Text size</string>
-    <string name="small">Small</string>
-    <string name="medium">Medium</string>
-    <string name="large">Large</string>
+    <string name="text_size" translatable="false">Text size</string>
+    <string name="small" translatable="false">Small</string>
+    <string name="medium" translatable="false">Medium</string>
+    <string name="large" translatable="false">Large</string>
 
     <string name="content_density">Content density</string>
     <string name="max_items_to_display">Max items to display in list</string>
     <string name="max_lines_to_display">Max lines to display in note</string>
-    <string name="max_lines_to_display_title">Max lines to display in title</string>
+    <string name="max_lines_to_display_title" translatable="false">Max lines to display in title</string>
 
     <!-- Backup -->
     <string name="backup">Backup</string>
-    <string name="auto_backup">Auto backup</string>
-    <string name="tap_to_set_up">Tap to set up</string>
-    <string name="notes_will_be">Notes will be backed up to your phone’s internal storage everyday.\n\nThis may not work if you have power saving mode enabled</string>
-    <string name="choose_folder">Choose folder</string>
-    <string name="disable_auto_backup">Disable auto backup</string>
-    <string name="choose_another_folder">Choose another folder</string>
-    <string name="cant_find_folder">Can’t find folder. It may have been moved or deleted</string>
-    <string name="invalid_backup">Invalid backup</string>
-    <string name="imported_backup">Imported backup</string>
-    <string name="exporting_backup">Exporting backup</string>
-    <string name="importing_backup">Importing backup</string>
-    <string name="calculating">Calculating…</string>
+    <string name="auto_backup" translatable="false">Auto backup</string>
+    <string name="tap_to_set_up" translatable="false">Tap to set up</string>
+    <string name="notes_will_be" translatable="false">Notes will be backed up to your phone\'s internal storage everyday.\n\nThis may not work if you have power saving mode enabled</string>
+    <string name="choose_folder" translatable="false">Choose folder</string>
+    <string name="disable_auto_backup" translatable="false">Disable auto backup</string>
+    <string name="choose_another_folder" translatable="false">Choose another folder</string>
+    <string name="cant_find_folder" translatable="false">Can\'t find folder. It may have been moved or deleted</string>
+    <string name="invalid_backup" translatable="false">Invalid backup</string>
+    <string name="imported_backup" translatable="false">Imported backup</string>
+    <string name="exporting_backup" translatable="false">Exporting backup</string>
+    <string name="importing_backup" translatable="false">Importing backup</string>
+    <string name="calculating" translatable="false">Calculating…</string>
 
-    <string name="export_backup">Export backup</string>
-    <string name="import_backup">Import backup</string>
+    <string name="export_backup" translatable="false">Export backup</string>
+    <string name="import_backup" translatable="false">Import backup</string>
 
     <string name="about">About</string>
     <string name="libraries">Libraries</string>
     <string name="rate">Rate this app</string>
-    <string name="send_feedback">Send feedback</string>
+    <string name="send_feedback" translatable="false">Send feedback</string>
 
     <string name="github" translatable="false">GitHub</string>
 
     <!-- Widget -->
-    <string name="single_note_or_list">Single note or list</string>
-    <string name="select_note">Select note</string>
+    <string name="single_note_or_list" translatable="false">Single note or list</string>
+    <string name="select_note" translatable="false">Select note</string>
 
     <!-- Images -->
     <string name="count" translatable="false">%1$d / %2$d</string>
-    <string name="adding_images">Adding images</string>
-    <string name="deleting_images">Deleting images</string>
-    <string name="invalid_image">Invalid image</string>
-    <string name="error_while_renaming_image">Error while renaming image</string>
-    <string name="image_format_not_supported">Image format not supported</string>
-    <string name="delete_image_forever">Delete image forever?</string>
-    <string name="cant_load_image">Can’t load image. It may have been moved or deleted</string>
-    <string name="unknown_name">Unknown name</string>
-    <string name="unknown_error">Unknown error</string>
-    <string name="insert_an_sd_card_images">Insert an SD card to add images</string>
-    <string name="please_grant_notally_notification">Please grant Notally the permission to send notifications. This is used to display the progress if operations like deleting images or importing backups take time</string>
+    <string name="adding_images" translatable="false">Adding images</string>
+    <string name="deleting_images" translatable="false">Deleting images</string>
+    <string name="invalid_image" translatable="false">Invalid image</string>
+    <string name="error_while_renaming_image" translatable="false">Error while renaming image</string>
+    <string name="image_format_not_supported" translatable="false">Image format not supported</string>
+    <string name="delete_image_forever" translatable="false">Delete image forever?</string>
+    <string name="cant_load_image" translatable="false">Can\'t load image. It may have been moved or deleted</string>
+    <string name="unknown_name" translatable="false">Unknown name</string>
+    <string name="unknown_error" translatable="false">Unknown error</string>
+    <string name="insert_an_sd_card_images" translatable="false">Insert an SD card to add images</string>
+    <string name="please_grant_notally_notification" translatable="false">Please grant Notally the permission to send notifications. This is used to display the progress if operations like deleting images or importing backups take time</string>
 
-    <plurals name="cant_add_images">
-        <item quantity="one">Can’t add %d image</item>
-        <item quantity="other">Can’t add %d images</item>
+    <plurals name="cant_add_images" translatable="false">
+        <item quantity="one">Can\'t add %d image</item>
+        <item quantity="other">Can\'t add %d images</item>
     </plurals>
 
     <!-- Audio -->
-    <string name="play">Play</string>
-    <string name="stop">Stop</string>
-    <string name="start">Start</string>
-    <string name="pause">Pause</string>
-    <string name="resume">Resume</string>
-    <string name="paused">Paused</string>
-    <string name="recording">Recording…</string>
-    <string name="ready_to_record">Ready to record</string>
-    <string name="discard">Discard</string>
-    <string name="save_recording">Save recording?</string>
-    <string name="delete_audio_recording_forever">Delete audio recording forever?</string>
-    <string name="tap_for_more_options">Tap for more options</string>
-    <string name="to_record_audio">To record audio, allow Notally access to your microphone. Tap Settings > Permissions and turn Microphone on</string>
-    <string name="please_grant_notally_audio">Please grant Notally the permission to record audio. Recordings never leave your device</string>
-    <string name="insert_an_sd_card_audio">Insert an SD card to record audio</string>
-    <string name="something_went_wrong_audio">Something went wrong. The audio recording may have been moved or deleted.\n\nError : (%1$d, %2$d)</string>
+    <string name="play" translatable="false">Play</string>
+    <string name="stop" translatable="false">Stop</string>
+    <string name="start" translatable="false">Start</string>
+    <string name="pause" translatable="false">Pause</string>
+    <string name="resume" translatable="false">Resume</string>
+    <string name="paused" translatable="false">Paused</string>
+    <string name="recording" translatable="false">Recording…</string>
+    <string name="ready_to_record" translatable="false">Ready to record</string>
+    <string name="discard" translatable="false">Discard</string>
+    <string name="save_recording" translatable="false">Save recording?</string>
+    <string name="delete_audio_recording_forever" translatable="false">Delete audio recording forever?</string>
+    <string name="tap_for_more_options" translatable="false">Tap for more options</string>
+    <string name="to_record_audio" translatable="false">To record audio, allow Notally access to your microphone. Tap Settings > Permissions and turn Microphone on</string>
+    <string name="please_grant_notally_audio" translatable="false">Please grant Notally the permission to record audio. Recordings never leave your device</string>
+    <string name="insert_an_sd_card_audio" translatable="false">Insert an SD card to record audio</string>
+    <string name="something_went_wrong_audio" translatable="false">Something went wrong. The audio recording may have been moved or deleted.\n\nError : (%1$d, %2$d)</string>
+
+    <!-- Swipe Actions -->
+    <string name="delete_note" translatable="false">Delete Note</string>
+    <string name="delete_note_confirmation" translatable="false">Are you sure you want to delete this note?</string>
+    <string name="note_deleted" translatable="false">Note moved to trash</string>
+    <string name="note_archived" translatable="false">Note archived</string>
+    <string name="note_unarchived" translatable="false">Note unarchived</string>
+    <string name="note_restored" translatable="false">Note restored</string>
+
+    <string name="undo" translatable="false">UNDO</string>
 </resources>

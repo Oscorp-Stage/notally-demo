@@ -108,6 +108,8 @@ interface BaseNoteDao {
     @Query("UPDATE BaseNote SET audios = :audios WHERE id = :id")
     suspend fun updateAudios(id: Long, audios: List<Audio>)
 
+    @Query("UPDATE BaseNote SET folder = :folder WHERE id = :id")
+    suspend fun updateFolder(id: Long, folder: Folder)
 
     /**
      * Both id and position can be invalid.
